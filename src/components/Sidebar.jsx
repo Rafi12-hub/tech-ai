@@ -20,16 +20,15 @@ export default function Sidebar({ tabs }) {
 
   return (
     <>
-      {/* Desktop sidebar */}
-      <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        <div className="glass-strong flex flex-col flex-1 border-r border-slate-200 dark:border-dark-border">
-          <div className="flex items-center gap-3 px-6 py-6 border-b border-slate-200 dark:border-dark-border">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center">
+      <aside className="hidden lg:flex lg:fixed lg:inset-y-0 lg:z-30 lg:w-[--sidebar-width] lg:flex-col bg-sidebar border-r border-sidebar-border">
+        <div className="flex flex-col flex-1">
+          <div className="flex items-center gap-3 px-6 py-6 border-b border-sidebar-border">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center flex-shrink-0">
               <FileText className="w-5 h-5 text-white" />
             </div>
-            <div>
-              <h1 className="text-lg font-bold gradient-text">TechBrief AI</h1>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Report Assistant</p>
+            <div className="min-w-0">
+              <h1 className="text-lg font-bold gradient-text truncate">TechBrief AI</h1>
+              <p className="text-xs text-sidebar-foreground/70">Report Assistant</p>
             </div>
           </div>
 
@@ -43,20 +42,21 @@ export default function Sidebar({ tabs }) {
                   key={tab.id}
                   onClick={() => !disabled && setActiveTab(tab.id)}
                   disabled={disabled}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  data-active={activeTab === tab.id}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-accent/10 to-accent-secondary/10 text-accent dark:text-accent-secondary shadow-sm'
+                      ? 'bg-sidebar-accent text-sidebar-accent-foreground shadow-sm'
                       : disabled
-                        ? 'text-slate-400 dark:text-slate-600 cursor-not-allowed opacity-50'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-dark-card hover:text-slate-900 dark:hover:text-slate-200'
+                        ? 'text-sidebar-foreground/40 cursor-not-allowed'
+                        : 'text-sidebar-foreground hover-bg-sidebar-accent hover-text-sidebar-accent-foreground'
                   }`}
                 >
-                  <Icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-accent dark:text-accent-secondary' : ''}`} />
-                  <span>{tab.name}</span>
+                  <Icon className={`w-5 h-5 flex-shrink-0 ${activeTab === tab.id ? 'text-accent' : ''}`} />
+                  <span className="truncate">{tab.name}</span>
                   {activeTab === tab.id && (
                     <motion.div
                       layoutId="activeTab"
-                      className="ml-auto w-1.5 h-1.5 rounded-full bg-accent dark:bg-accent-secondary"
+                      className="ml-auto w-1.5 h-1.5 rounded-full bg-accent"
                     />
                   )}
                 </button>
@@ -64,14 +64,13 @@ export default function Sidebar({ tabs }) {
             })}
           </nav>
 
-          <div className="px-6 py-4 border-t border-slate-200 dark:border-dark-border">
-            <p className="text-xs text-slate-400 dark:text-slate-500">TechBrief AI v1.0</p>
+          <div className="px-6 py-4 border-t border-sidebar-border">
+            <p className="text-xs text-sidebar-foreground/50">TechBrief AI v1.0</p>
           </div>
         </div>
       </aside>
 
-      {/* Mobile bottom nav */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 glass-strong border-t border-slate-200 dark:border-dark-border safe-area-bottom">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-sidebar border-t border-sidebar-border safe-area-bottom">
         <div className="flex items-center justify-around px-2 py-2 overflow-x-auto">
           {tabs.map((tab) => {
             const Icon = iconMap[tab.icon] || FileText;
@@ -84,13 +83,13 @@ export default function Sidebar({ tabs }) {
                 disabled={disabled}
                 className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg text-[10px] font-medium transition-all min-w-[48px] ${
                   activeTab === tab.id
-                    ? 'text-accent dark:text-accent-secondary'
+                    ? 'text-accent'
                     : disabled
-                      ? 'text-slate-300 dark:text-slate-700'
-                      : 'text-slate-500 dark:text-slate-400'
+                      ? 'text-sidebar-foreground/40'
+                      : 'text-sidebar-foreground/70'
                 }`}
               >
-                <Icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-accent dark:text-accent-secondary' : ''}`} />
+                <Icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-accent' : ''}`} />
                 <span className="truncate max-w-full">{tab.name}</span>
               </button>
             );

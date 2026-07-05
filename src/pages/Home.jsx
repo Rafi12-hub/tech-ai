@@ -10,6 +10,7 @@ import AnalyticsTab from '../components/tabs/AnalyticsTab';
 import ExportTab from '../components/tabs/ExportTab';
 import SettingsTab from '../components/tabs/SettingsTab';
 import { useAnalysis } from '../lib/AnalysisContext';
+import { SidebarProvider } from '../lib/SidebarProvider';
 
 const tabs = [
   { id: 0, name: 'Upload', icon: 'Upload' },
@@ -48,29 +49,31 @@ export default function Home({ settings, updateSetting, resetSettings }) {
   const { activeTab } = useAnalysis();
 
   return (
-    <div className="min-h-screen bg-light-bg dark:bg-dark-bg text-slate-900 dark:text-slate-100 transition-colors duration-300">
-      <Sidebar tabs={tabs} />
+    <SidebarProvider>
+      <div className="min-h-screen bg-light-bg dark:bg-dark-bg text-slate-900 dark:text-slate-100 transition-colors duration-300">
+        <Sidebar tabs={tabs} />
 
-      <main className="lg:ml-64 pb-20 lg:pb-0 min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              variants={tabVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <TabContent
-                tabId={activeTab}
-                settings={settings}
-                updateSetting={updateSetting}
-                resetSettings={resetSettings}
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </main>
-    </div>
+        <main className="lg:pl-[--sidebar-width] pb-16 lg:pb-0 min-h-screen">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <TabContent
+                  tabId={activeTab}
+                  settings={settings}
+                  updateSetting={updateSetting}
+                  resetSettings={resetSettings}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </main>
+      </div>
+    </SidebarProvider>
   );
 }
