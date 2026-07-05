@@ -1,0 +1,22 @@
+{
+  "$schema": "AnalysisResult Entity",
+  "description": "Stores the comprehensive AI analysis of a document",
+  "fields": {
+    "document_id": { "type": "string", "description": "Reference to Document" },
+    "summary_30s": { "type": "string", "description": "2-3 sentence quick summary" },
+    "summary_executive": { "type": "string", "description": "Executive summary for leadership" },
+    "summary_detailed": { "type": "string", "description": "Comprehensive multi-paragraph summary" },
+    "summary_bullet": { "type": "array", "items": "string", "description": "5-8 bullet points" },
+    "key_findings": { "type": "array", "items": "string", "description": "Key findings from the document" },
+    "action_items": { "type": "array", "items": "string", "description": "Actionable items" },
+    "risks": { "type": "array", "items": "string", "description": "Identified risks" },
+    "recommendations": { "type": "array", "items": "string", "description": "Recommendations" },
+    "metrics": { "type": "array", "items": { "label": "string", "value": "string", "category": "enum" }, "description": "Important metrics" },
+    "keywords": { "type": "array", "items": "string", "description": "10-15 domain-specific terms" },
+    "glossary": { "type": "array", "items": { "term": "string", "definition": "string" }, "description": "Auto-generated glossary" },
+    "section_summaries": { "type": "array", "items": { "title": "string", "summary": "string" }, "description": "Per-section mini summaries" },
+    "timeline": { "type": "array", "items": { "event": "string", "date": "string", "type": "enum" }, "description": "Project timeline" },
+    "knowledge_graph": { "type": "object", "description": "Nodes and edges for knowledge graph" },
+    "evaluation": { "type": "object", "description": "ROUGE, BERTScore, compression, confidence" }
+  }
+}

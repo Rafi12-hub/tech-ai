@@ -1,0 +1,17 @@
+{
+  "$schema": "Document Entity",
+  "description": "Represents an uploaded technical document",
+  "fields": {
+    "id": { "type": "string", "description": "Unique document identifier" },
+    "filename": { "type": "string", "required": true, "description": "Original filename" },
+    "file_url": { "type": "string", "description": "Stored file path" },
+    "status": { "type": "enum", "values": ["uploading", "parsing", "analyzing", "ready", "error"], "description": "Processing status" },
+    "raw_text": { "type": "string", "description": "Extracted full text content" },
+    "file_type": { "type": "string", "description": "File extension: pdf, docx, doc, txt" },
+    "file_size": { "type": "number", "description": "File size in bytes" },
+    "page_count": { "type": "number", "description": "Number of pages" },
+    "sections": { "type": "array", "items": { "title": "string", "content": "string" }, "description": "Document sections" },
+    "metadata": { "type": "object", "description": "Additional metadata" },
+    "created_at": { "type": "string", "description": "ISO timestamp of upload" }
+  }
+}
