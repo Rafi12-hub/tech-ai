@@ -34,7 +34,7 @@ export function AnalysisProvider({ children, settings }) {
   };
 
   const api = useCallback(async (endpoint, options = {}) => {
-    const baseUrl = '/api';
+    const baseUrl = (import.meta.env.VITE_API_URL || '') + '/api';
     const url = `${baseUrl}${endpoint}`;
     if (options.method === 'POST' && options.body instanceof FormData) {
       const res = await fetch(url, { method: 'POST', body: options.body });
